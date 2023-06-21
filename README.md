@@ -1,3 +1,20 @@
+Project Info :
+
+This project I've been working on is an API project that revolves around fetching random jokes based on different categories. Let me break it down for you:
+
+The main feature of this project is that it interacts with an API to retrieve random jokes. You can specify a category, and the project will fetch a joke from that specific category.
+
+In this project I have used 3 important hooks,
+
+1.useState:
+I used the useState hook for state management. It allowed me to create and manage state variables in a simple and efficient way. With useState, I could easily handle and update the project's state, ensuring a smooth user experience.
+
+2.useEffect:
+The useEffect hook was vital for making API calls in the project. It allowed me to fetch data from external sources and perform certain actions whenever specific conditions were met. This hook was incredibly handy for keeping the project up to date with the latest data.
+
+3.useContext:
+To pass data around the project and make it easily accessible to different components, I utilized the useContext hook. It enabled me to create a context where I could store and share data without the need for prop drilling. This made the code more organized and reduced redundancy.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -1,16 +1,31 @@
 import React from "react";
+import { ContextApi } from "../contexts/GlobalContext";
 
-const Categories = ({ categories, setCategory }) => {
+const Categories = () => {
+  const { categories, setCategory, setIsModelOpen, selected, setSelected } =
+    ContextApi();
+
   return (
-    <div className="grid gap-4 md:gap-6 grid-cols-4 grid-rows-4 mt-5 md:w-[550px] px-3 md:px-0">
+    <div className="grid gap-4 md:gap-8 lg:gap-10 grid-cols-4 grid-rows-4 md:grid-cols-2 md:grid-rows-8 lg:grid-cols-4 lg:grid-rows-4 mt-5 px-3 md:px-0">
       {categories.map((category, index) => {
         return (
           <div
             key={index}
-            onClick={() => setCategory(category)}
-            className="bg-white rounded-md py-1 px-2 sm:text-xs md:text-base text-[#011936] font-semibold capitalize hover:scale-105 transition-all duration-300 cursor-pointer shadow-xl text-center"
+            onClick={() => {
+              setSelected(category);
+              setCategory(category);
+              setIsModelOpen(true);
+            }}
+            className={`${
+              selected === category
+                ? "bg-slate-400 text-white"
+                : "bg-white text-[#011936]"
+            } rounded-md py-1 px-2 sm:text-xs md:text-xl lg:text-2xl font-semibold capitalize hover:scale-105 transition-all duration-300 cursor-pointer shadow-xl text-center md:w-[220px] md:h-[130px] lg:w-[200px] lg:h-[120px] xl:w-[220px] xl:h-[130px] md:flex flex-col items-center justify-center`}
           >
             {category}
+            <p className="hidden md:block text-[12px] font-light text-violet-800">
+              Unlimited Jokes On {category}
+            </p>
           </div>
         );
       })}

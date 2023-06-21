@@ -4,31 +4,15 @@ import "./styles/App.css";
 import Categories from "./components/Categories";
 import LoaderTwo from "./components/LoaderTwo";
 import Jokes from "./components/Jokes";
+import { ContextApi } from "./contexts/GlobalContext";
 
 function App() {
-  const [categories, setCategories] = useState([]);
-  const [category, setCategory] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [jokes, setJokes] = useState([]);
-
-  // fetching categories
-  const getCategories = async () => {
-    await fetch("https://api.chucknorris.io/jokes/categories")
-      .then((response) => response.json())
-      .then((data) => setCategories(data));
-  };
+  const { category, getCategories, getJokes } = ContextApi();
 
   useEffect(() => {
-    getCategories();
+    getCategories(); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // fetching jokes
-  const getJokes = async () => {
-    await fetch(`https://api.chucknorris.io/jokes/random?category=${category}`)
-      .then((response) => response.json())
-      .then((data) => setJokes(data));
-  };
-  console.log(jokes);
 
   useEffect(() => {
     getJokes(); // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -42,16 +26,16 @@ function App() {
   });
 
   return (
-    <div>
+    <div className="md:px-6 lg:px-10 lg:py-5 xl:py-8">
       {isLoading ? (
         <LoaderTwo />
       ) : (
         <>
-          <h1 className="text-center text-green-500 font-semibold text-3xl animate-bounce transition-all duration-200">
+          <h1 className="text-center text-green-500 font-semibold text-3xl lg:text-4xl animate-bounce transition-all duration-200">
             Chuck Norries
           </h1>
-          <Categories categories={categories} setCategory={setCategory} />
-          <Jokes {...jokes} category={category} getJokes={getJokes} />
+          <Categories />
+          <Jokes />
         </>
       )}
     </div>

@@ -9,6 +9,7 @@ const GlobalContextProvider = ({ children }) => {
   const [jokes, setJokes] = useState([]);
   const [isModelOpen, setIsModelOpen] = useState(false);
   const [selected, setSelected] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   // fetching categories
   const getCategories = async () => {
@@ -24,11 +25,13 @@ const GlobalContextProvider = ({ children }) => {
   // fetching jokes
   const getJokes = async () => {
     try {
-      await fetch(
-        `https://api.chucknorris.io/jokes/random?category=${category}`
-      )
-        .then((response) => response.json())
-        .then((data) => setJokes(data));
+      if (category) {
+        await fetch(
+          `https://api.chucknorris.io/jokes/random?category=${category}`
+        )
+          .then((response) => response.json())
+          .then((data) => setJokes(data));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -38,17 +41,17 @@ const GlobalContextProvider = ({ children }) => {
     <GlobalContext.Provider
       value={{
         categories,
-        setCategories,
         category,
         setCategory,
         jokes,
-        setJokes,
         getCategories,
         getJokes,
         isModelOpen,
         setIsModelOpen,
         selected,
         setSelected,
+        isLoading,
+        setIsLoading,
       }}
     >
       {children}
